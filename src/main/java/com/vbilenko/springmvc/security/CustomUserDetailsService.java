@@ -2,6 +2,7 @@ package com.vbilenko.springmvc.security;
 
 import com.vbilenko.springmvc.model.User;
 import com.vbilenko.springmvc.model.UserProfile;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,9 +26,14 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     private User getUserBySso(@PathVariable String ssoId) {
 
-        RestTemplate restTemplate = new RestTemplate();
+        String plainClientCredentials = "sam:1";
+        String base64ClientCredentials = new String(Base64.encodeBase64(plainClientCredentials.getBytes()));
+
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Basic " + base64ClientCredentials);
+
+        RestTemplate restTemplate = new RestTemplate();
         String resourceURL = "http://localhost:8080/users/sso/" + ssoId;
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<User> response = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, User.class);

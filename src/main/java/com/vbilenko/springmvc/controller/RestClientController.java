@@ -3,6 +3,7 @@ package com.vbilenko.springmvc.controller;
 import com.vbilenko.springmvc.model.User;
 import com.vbilenko.springmvc.model.UserProfile;
 import com.vbilenko.springmvc.service.UserProfileService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.*;
@@ -44,16 +45,20 @@ public class RestClientController {
     @Autowired
     private UserProfileService userProfileService;
 
+    private String plainClientCredentials = "sam:1";
+    private String base64ClientCredentials = new String(Base64.encodeBase64(plainClientCredentials.getBytes()));
 
     /**
      * This method will list all existing users.
      */
     @RequestMapping
     public String listUsers(ModelMap model) {
-        RestTemplate restTemplate = new RestTemplate();
+
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Basic " + base64ClientCredentials);
 
+        RestTemplate restTemplate = new RestTemplate();
         String resourceURL = "http://localhost:8080/users";
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<User[]> response = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, User[].class);
@@ -91,7 +96,8 @@ public class RestClientController {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Basic " + base64ClientCredentials);
 
         HttpEntity<User> request = new HttpEntity<>(user, headers);
 
@@ -111,10 +117,11 @@ public class RestClientController {
     @RequestMapping(value = {"/edit-user-{id}"})
     public String editUser(@PathVariable int id, ModelMap model) {
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Basic " + base64ClientCredentials);
 
+        RestTemplate restTemplate = new RestTemplate();
         String resourceURL = "http://localhost:8080/users/" + id;
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<User> response = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, User.class);
@@ -137,10 +144,12 @@ public class RestClientController {
         if (result.hasErrors()) {
             return "registration";
         }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<User> request = new HttpEntity<>(user, headers);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Basic " + base64ClientCredentials);
+
+        HttpEntity<User> request = new HttpEntity<>(user, headers);
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:8080/users/";
         restTemplate.put(url + id, request, User.class);
@@ -155,10 +164,15 @@ public class RestClientController {
      */
     @RequestMapping(value = {"/delete-user-{id}"})
     public String deleteUser(@PathVariable int id) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64ClientCredentials);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
         String entityUrl = "http://localhost:8080/users" + "/" + id;
-        restTemplate.delete(entityUrl);
+        restTemplate.exchange(entityUrl, HttpMethod.DELETE, entity, User.class);
         return "redirect:/";
     }
 
