@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+    <title>Login Page</title>
+
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/app.css}"/>
+    <link rel="stylesheet" type="text/css"
+          href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css"/>
+
+<body>
+<div class="generic-container">
+
+    <h2 th:text="${edit==true?'Update User':'User Registration'}"></h2>
+    <hr>
+
+    <!--if Edit = edit page-->
+    <div th:if="${edit==true}">
+        <form th:action="@{'/edit-user-'+${user.id}}" th:object="${user}" method="post" class="form-horizontal">
+            <input type="hidden" name="id" th:field="${user.id}"/>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">First Name</label>
+                    <div class="col-md-7">
+                        <input type="text" name="firstName" th:field="${user.firstName}"
+                               class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">Last Name</label>
+                    <div class="col-md-7">
+                        <input type="text" name="lastName" th:field="${user.lastName}"
+                               class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">SSO ID</label>
+                    <div class="col-md-7">
+                        <input type="text" name="ssoId" th:field="${user.ssoId}" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">Password</label>
+                    <div class="col-md-7">
+                        <input type="text" name="password" th:field="${user.password}"
+                               class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">Email</label>
+                    <div class="col-md-7">
+                        <input type="text" name="email" th:field="${user.email}" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="row">-->
+            <!--<div class="form-group col-md-12">-->
+            <!--<label class="col-md-3 control-lable">Roles</label>-->
+            <!--<div class="col-md-7">-->
+
+            <!--<select th:field="#{userProfiles}" multiple="multiple" th:value="id"-->
+            <!--class="form-control input-sm">-->
+            <!--<option th:each="role:${roles}"-->
+            <!--th:value="${role.id}"-->
+            <!--th:text="${role.type}">-->
+            <!--</option>-->
+            <!--</select>-->
+
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="row">
+                <button type="submit" class="btn btn-primary btn-sm" th:text="${edit==true?'Update': 'Create'}">
+                </button>
+                &nbsp
+                &nbsp
+                <a th:href="@{/}" class="btn btn-primary btn-sm">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+
+    <!--new user = new registration form-->
+    <div th:unless="${edit==true}">
+
+        <form th:action="@{/newuser}" th:object="${user}" method="post" class="form-horizontal">
+            <input type="hidden" name="id" th:field="${user.id}"/>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">First Name</label>
+                    <div class="col-md-7">
+                        <input type="text" name="firstName" th:field="${user.firstName}"
+                               class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">Last Name</label>
+                    <div class="col-md-7">
+                        <input type="text" name="lastName" th:field="${user.lastName}"
+                               class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">SSO ID</label>
+                    <div class="col-md-7">
+                        <input type="text" name="ssoId" th:field="${user.ssoId}" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">Password</label>
+                    <div class="col-md-7">
+                        <input type="text" name="password" th:field="${user.password}"
+                               class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3 control-lable">Email</label>
+                    <div class="col-md-7">
+                        <input type="text" name="email" th:field="${user.email}" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="row">-->
+            <!--<div class="form-group col-md-12">-->
+            <!--<label class="col-md-3 control-lable">Roles</label>-->
+            <!--<div class="col-md-7">-->
+
+            <!--<select th:field="*{userProfiles}" multiple="multiple" th:value="id"-->
+            <!--class="form-control input-sm">-->
+            <!--<option th:each="role:${roles}"-->
+            <!--th:value="${role.id}"-->
+            <!--th:text="${role.type}">-->
+            <!--</option>-->
+            <!--</select>-->
+
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="row">
+                <button type="submit" class="btn btn-primary btn-sm" th:text="${edit==true?'Update': 'Create'}">
+                </button>
+                &nbsp
+                &nbsp
+                <a th:href="@{/}" class="btn btn-primary btn-sm">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

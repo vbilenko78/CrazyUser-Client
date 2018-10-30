@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+    <title>Login Page</title>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/app.css}"/>
+    <link rel="stylesheet" type="text/css"
+          href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css"/>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/static/css/dashboard.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/tabs.css}"/>
+
+</head>
+
+<body>
+
+<!--NavBar-->
+<span th:block th:insert="authheader"></span>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!--SideBar-->
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="navbar-light">
+                    <a class="nav-link" th:href="@{/}">Admin</a>
+                    <a class="nav-link" th:href="@{/userpage}">User</a>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!--Main Window-->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <div class="container">
+                <div class="navbar-inner">
+                    <div class="col-md-12">
+
+                        <h3>Admin Panel</h3>
+
+                        <div class="tabbable-panel">
+                            <div class="tabbable-line">
+
+                                <!--tabs start here!!!-->
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#tab_default_1" data-toggle="tab">Users List</a>
+                                    </li>
+                                    &nbsp &nbsp
+                                    <li>
+                                        <a href="#tab_default_2" data-toggle="tab">New User</a>
+                                    </li>
+                                </ul>
+
+                                <!--tabs content-->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_default_1">
+                                        <span class="lead">List of Users </span>
+                                        <table class="table table-hover shadow p-3 mb-5 bg-white rounded">
+                                            <thead>
+                                            <tr>
+                                                <th>Firstname</th>
+                                                <th>Lastname</th>
+                                                <th>Email</th>
+                                                <th>SSO ID</th>
+
+                                                <div th:if="${#request.isUserInRole('ROLE_DBA') || #request.isUserInRole('ROLE_ADMIN')}">
+                                                    <th width="100"></th>
+                                                </div>
+
+                                                <div th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+                                                    <th width="20"></th>
+                                                </div>
+                                            </tr>
+                                            </thead>
+                                            <tr th:each="user : ${users}">
+                                                <td th:text="${user.getFirstName()}"></td>
+                                                <td th:text="${user.getLastName()}"></td>
+                                                <td th:text="${user.getEmail()}"></td>
+                                                <td th:text="${user.getSsoId()}"></td>
+
+                                                <div th:if="${#request.isUserInRole('ROLE_DBA') || #request.isUserInRole('ROLE_ADMIN')}">
+                                                    <td><a th:href="@{'/edit-user-'+${user.getId()}}"
+                                                           class="btn btn-success custom-width">edit</a>
+                                                    </td>
+                                                </div>
+
+                                                <div th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+                                                    <td><a th:href="@{'/delete-user-'+${user.getId()}}"
+                                                           class="btn btn-danger custom-width">delete</a>
+                                                    </td>
+                                                </div>
+
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <!--second tab-->
+                                    <div id="tab_default_2" class="tab-pane fade">
+                                        <p>
+                                        <h1 class="text-left">FBI Anti-Piracy Warning Seal</h1>
+                                        <p>A new federal regulation regarding the FBI?s Anti-Piracy Warning (APW) Seal
+                                            took effect several years ago?41 CFR Section 128-1.5009 authorizes use of
+                                            the APW Seal by all U.S. copyright holders, subject to specific conditions
+                                            of use. Copyrighted works can include, but are not limited to, films, audio
+                                            recordings, electronic media, software, books, photographs, etc. The purpose
+                                            of the APW Seal is to remind media users of the serious consequences of
+                                            pirating copyrighted works. Use of this seal does not indicate that the FBI
+                                            has reviewed or validated copyright interests in the particular work and
+                                            does not provide greater legal protection to the work. It simply serves as a
+                                            widely recognizable reminder of the FBI?s authority and mission with respect
+                                            to the protection of intellectual property rights.</p>
+                                        </p>
+                                        <a th:href="@{/newuser}">Add User</a>
+                                    </div>
+                                    <!--end of tabs-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- include javascript in the footer -->
+<script type="text/javascript" th:src="@{/static/js/jquery-1.8.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.bundle.js}"></script>
+
+</body>
+</html>
