@@ -114,3 +114,8 @@ body, #mainWrapper, .form-control {
     padding: 5px 15px;
 }
 
+.wrapper-center {
+    position: absolute;
+    left: 41%;
+}
+

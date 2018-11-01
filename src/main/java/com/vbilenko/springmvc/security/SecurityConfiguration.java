@@ -2,6 +2,7 @@ package com.vbilenko.springmvc.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@EnableOAuth2Sso
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
@@ -30,10 +32,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/")
-                .access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')").antMatchers("/edit-user-*")
-                .access("hasRole('ADMIN') or hasRole('DBA')").and().formLogin().loginPage("/login")
+        http.authorizeRequests().antMatchers("/", "/list")
+                .access("hasRole('USER')")
+                .antMatchers("/newuser/**", "/delete-user-*")
+                .access("hasRole('USER')").antMatchers("/edit-user-*")
+                .hasAnyRole("hasRole('USER') or hasRole('DBA')").and().formLogin()
+                .loginPage("/login")
                 .loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password")
                 .and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
     }

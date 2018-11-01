@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <!--Google Sign In-->
+    <meta name="google-signin-client_id"
+          content="143524927316-nm271lk897s5mc5oqc320agciulp0l92.apps.googleusercontent.com">
+
+    <title>Login Page</title>
+
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/app.css}"/>
+    <link rel="stylesheet" type="text/css"
+          href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css"/>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/static/css/signin.css}"/>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</head>
+
+<body class="text-lg-left">
+<form th:action="@{/login}" method="POST" class="form-signin">
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+    <div th:if="${#request.getParameter('error')}">
+        <div class="alert alert-danger">
+            Invalid username or password.
+        </div>
+    </div>
+
+    <div th:if="${#request.getParameter('logout')}">
+        <div class="alert alert-info">
+            You have been logged out.
+        </div>
+    </div>
+
+    <div class="input-group input-sm">
+        <label class="sr-only" for="username"><i class="fa fa-user"></i></label>
+        <input type="text" class="form-control" id="username" name="ssoId" placeholder="Enter Username"
+               required="" autofocus="">
+    </div>
+
+    <div class="input-group input-sm">
+        <label class="sr-only" for="password"><i class="fa fa-lock"></i></label>
+        <input type="password" class="form-control" id="password" name="password"
+               placeholder="Enter Password" required="">
+    </div>
+
+    <div class="form-actions">
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Log In">
+    </div>
+
+    <br>
+    <div id="my-signin2" class="wrapper-center"></div>
+
+    <script>
+        function onSuccess(googleUser) {
+            console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        }
+
+        function onFailure(error) {
+            console.log(error);
+        }
+
+        function renderButton() {
+            gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+            });
+        }
+    </script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</form>
+
+</body>
+</html>

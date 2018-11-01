@@ -1,0 +1,13 @@
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/controller/RestClientController.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/model/User.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/service/UserProfileServiceImpl.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/security/SecurityConfiguration.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/ApplicationEntry.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/dao/UserProfileDao.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/dao/UserProfileDaoImpl.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/model/UserProfileType.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/converter/RoleToUserProfileConverter.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/model/UserProfile.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/dao/AbstractDao.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/service/UserProfileService.java
+/Users/vbilenko/development/javamentor/client-server/CrazyUsers-Client/src/main/java/com/vbilenko/springmvc/security/CustomUserDetailsService.java

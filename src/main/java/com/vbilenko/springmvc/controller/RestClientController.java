@@ -51,7 +51,7 @@ public class RestClientController {
     /**
      * This method will list all existing users.
      */
-    @RequestMapping
+    @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
 
         HttpHeaders headers = new HttpHeaders();
@@ -203,11 +203,10 @@ public class RestClientController {
      * This method handles login GET requests.
      * If users is already logged-in and tries to goto login page again, will be redirected to list page.
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = {"/login"})
     public String loginPage() {
         return "login";
     }
-
 
     /**
      * This method retrieves user's welcome page
@@ -217,10 +216,8 @@ public class RestClientController {
         return "userpage";
     }
 
-
     /**
      * This method handles logout requests.
-     * Toggle the handlers if you are RememberMe functionality is useless in your app.
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {

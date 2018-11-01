@@ -3,6 +3,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <!--Google Sign In-->
+    <meta name="google-signin-client_id"
+          content="143524927316-nm271lk897s5mc5oqc320agciulp0l92.apps.googleusercontent.com">
 
     <title>Login Page</title>
 
@@ -12,6 +15,8 @@
           href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css"/>
     <!-- Custom styles for this template -->
     <link rel="stylesheet" th:href="@{/static/css/signin.css}"/>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
 </head>
 
 <body class="text-lg-left">
@@ -44,9 +49,37 @@
     </div>
 
     <div class="form-actions">
-        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Log in">
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Log In">
     </div>
 
+    <br>
+    <div id="my-signin2" class="wrapper-center"></div>
+
+    <script>
+        function onSuccess(googleUser) {
+            console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        }
+
+        function onFailure(error) {
+            console.log(error);
+        }
+
+        function renderButton() {
+            gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+            });
+        }
+
+    </script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </form>
 
 </body>

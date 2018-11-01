@@ -1,0 +1,13 @@
+com/vbilenko/springmvc/dao/UserProfileDao.class
+com/vbilenko/springmvc/ApplicationEntry.class
+com/vbilenko/springmvc/converter/RoleToUserProfileConverter.class
+com/vbilenko/springmvc/service/UserProfileServiceImpl.class
+com/vbilenko/springmvc/dao/UserProfileDaoImpl.class
+com/vbilenko/springmvc/dao/AbstractDao.class
+com/vbilenko/springmvc/controller/RestClientController.class
+com/vbilenko/springmvc/service/UserProfileService.class
+com/vbilenko/springmvc/model/UserProfile.class
+com/vbilenko/springmvc/model/UserProfileType.class
+com/vbilenko/springmvc/model/User.class
+com/vbilenko/springmvc/security/SecurityConfiguration.class
+com/vbilenko/springmvc/security/CustomUserDetailsService.class

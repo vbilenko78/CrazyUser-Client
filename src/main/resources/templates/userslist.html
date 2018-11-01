@@ -73,11 +73,11 @@
                                                 <th>Email</th>
                                                 <th>SSO ID</th>
 
-                                                <div th:if="${#request.isUserInRole('ROLE_DBA') || #request.isUserInRole('ROLE_ADMIN')}">
+                                                <div th:if="${#request.isUserInRole('ROLE_USER') || #request.isUserInRole('ROLE_ADMIN')}">
                                                     <th width="100"></th>
                                                 </div>
 
-                                                <div th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+                                                <div th:if="${#request.isUserInRole('ROLE_USER')}">
                                                     <th width="20"></th>
                                                 </div>
                                             </tr>
@@ -88,13 +88,13 @@
                                                 <td th:text="${user.getEmail()}"></td>
                                                 <td th:text="${user.getSsoId()}"></td>
 
-                                                <div th:if="${#request.isUserInRole('ROLE_DBA') || #request.isUserInRole('ROLE_ADMIN')}">
+                                                <div th:if="${#request.isUserInRole('ROLE_DBA') || #request.isUserInRole('ROLE_USER')}">
                                                     <td><a th:href="@{'/edit-user-'+${user.getId()}}"
                                                            class="btn btn-success custom-width">edit</a>
                                                     </td>
                                                 </div>
 
-                                                <div th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+                                                <div th:if="${#request.isUserInRole('ROLE_USER')}">
                                                     <td><a th:href="@{'/delete-user-'+${user.getId()}}"
                                                            class="btn btn-danger custom-width">delete</a>
                                                     </td>
